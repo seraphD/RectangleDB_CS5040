@@ -43,9 +43,16 @@ public class CommandParser {
 
             Rectangle toInsert = new Rectangle(Name, 
             		words[0], words[1], words[2], words[3]);
-
-            bst.insert(toInsert);
-            System.out.println("Rectangle accepted: " + words_String);
+            
+            //check if duplicate
+            if (bst.findNodeHelper(bst.root, toInsert) != null) {
+                System.out.println("Rectangle rejected: " + words_String);
+                return;
+            }
+            else {
+                bst.insert(toInsert);
+                System.out.println("Rectangle accepted: " + words_String);
+            }
         }
         catch (Exception e) {
             // not a good specification for a rectangle found
@@ -116,6 +123,7 @@ public class CommandParser {
                 || words[1] + words[3] > 1024) {
             return true;
         }
+        
                 
         return !name.matches("[a-zA-Z][a-zA-Z0-9_]*");
     }
