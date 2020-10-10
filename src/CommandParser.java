@@ -51,7 +51,7 @@ public class CommandParser {
             args = args.trim();
             if(args.matches("[a-zA-Z][a-zA-Z0-9_]*")) {
                 Rectangle target = new Rectangle(args);
-                if (!bst.remove(target)) {
+                if (!bst.remove(target, false)) {
                     System.out.println("Rectangle rejected: " + args);
                 }
             }
@@ -69,7 +69,7 @@ public class CommandParser {
                 }
                 else {
                     Rectangle target = findCoordHelper(item,words);
-                    bst.remove(target);
+                    bst.remove(target, true);
                 }
             }
         }
@@ -133,8 +133,8 @@ public class CommandParser {
         
         if (bst.getData().getX() == words[0] && 
             bst.getData().getY() == words[1] && 
-            bst.getData().getHeight() == words[2]&& 
-            bst.getData().getWidth() == words[3]) {
+            bst.getData().getHeight() == words[3] && 
+            bst.getData().getWidth() == words[2]) {
             return bst.getData();
         }
         else if (findCoordHelper(bst.getLeftChild(), words) == null) {

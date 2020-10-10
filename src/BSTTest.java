@@ -65,19 +65,19 @@ public class BSTTest extends TestCase {
         bst.insert(h);
         bst.insert(p);
         bst.insert(l);
-        assertTrue(bst.search(a));
-        assertTrue(bst.search(a2));
-        assertTrue(bst.search(b));
-        assertTrue(bst.search(b2));
-        assertTrue(bst.search(d));
-        assertTrue(bst.search(e));
-        assertTrue(bst.search(f));
-        assertTrue(bst.search(g));
-        assertTrue(bst.search(f));
-        assertTrue(bst.search(h));
-        assertTrue(bst.search(p));
-        assertTrue(bst.search(l));
-        assertFalse(bst.search(new Rectangle()));
+        assertTrue(bst.search(a, false));
+        assertTrue(bst.search(a2, false));
+        assertTrue(bst.search(b, false));
+        assertTrue(bst.search(b2, false));
+        assertTrue(bst.search(d, false));
+        assertTrue(bst.search(e, false));
+        assertTrue(bst.search(f, false));
+        assertTrue(bst.search(g, false));
+        assertTrue(bst.search(f, false));
+        assertTrue(bst.search(h, false));
+        assertTrue(bst.search(p, false));
+        assertTrue(bst.search(l, false));
+        assertFalse(bst.search(new Rectangle(), false));
     }
     
     public void testRemove() {
