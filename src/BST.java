@@ -56,21 +56,36 @@ public class BST<T extends Comparable<T>, E extends Comparable<E>>{
      *           the name of the target
      * @return the target found
      */
-    public T findNodeHelper(Node<T, E> subTreeNode, T target) {
+    public T findNodeHelper(Node<T, E> subTreeNode, T target, boolean byCoord) {
         if (subTreeNode == null) {
             return null;
         }
 
-        if (subTreeNode.getData().compareTo(target) == 0) {
-            //subTreeNode.activateDelete();
-            return subTreeNode.getData();
-        }
+        if (byCoord) {
+        	if (subTreeNode.getData().compareTo(target) == 0) {
+                //subTreeNode.activateDelete();
+                return subTreeNode.getData();
+            }
 
-        else if (findNodeHelper(subTreeNode.getLeftChild(), target) == null) {
-            return findNodeHelper(subTreeNode.getRightChild(), target);
+            else if (findNodeHelper(subTreeNode.getLeftChild(), target, byCoord) == null) {
+                return findNodeHelper(subTreeNode.getRightChild(), target, byCoord);
+            }
+            else {
+                return findNodeHelper(subTreeNode.getLeftChild(), target, byCoord);
+            }
         }
         else {
-            return findNodeHelper(subTreeNode.getLeftChild(), target);
+        	if (subTreeNode.getData().compareTo(target) == 0) {
+                //subTreeNode.activateDelete();
+                return subTreeNode.getData();
+            }
+
+            else if (findNodeHelper(subTreeNode.getLeftChild(), target, byCoord) == null) {
+                return findNodeHelper(subTreeNode.getRightChild(), target, byCoord);
+            }
+            else {
+                return findNodeHelper(subTreeNode.getLeftChild(), target, byCoord);
+            }
         }
     }
     
@@ -161,12 +176,14 @@ public class BST<T extends Comparable<T>, E extends Comparable<E>>{
             return null;
         }
         
-        if(subTreeNode.getData().compareTo(target)>0) {
-            subTreeNode.setLeftChild(removeHelper(subTreeNode.getLeftChild(),target));
+        if(subTreeNode.getData().compareTo(target) > 0) {
+            subTreeNode.setLeftChild(
+            		removeHelper(subTreeNode.getLeftChild(), target));
         }
         
-        else if(subTreeNode.getData().compareTo(target)<0) {
-            subTreeNode.setRightChild(removeHelper(subTreeNode.getRightChild(),target));
+        else if(subTreeNode.getData().compareTo(target) < 0) {
+            subTreeNode.setRightChild(
+            		removeHelper(subTreeNode.getRightChild(), target));
         }
         
         else {//found it
@@ -235,8 +252,8 @@ public class BST<T extends Comparable<T>, E extends Comparable<E>>{
      * @return true if found
      *         false if not found
      */
-    public boolean search(T target) {
-        if (findNodeHelper(root, target) == null) {
+    public boolean search(T target, boolean byCoord) {
+        if (findNodeHelper(root, target, byCoord) == null) {
             return false;
         }
         this.searchAllHelper(root, target);
@@ -244,7 +261,7 @@ public class BST<T extends Comparable<T>, E extends Comparable<E>>{
     }
     
     
-    public boolean remove(T target) {
+    public boolean remove(T target, boolean byCoord) {
         if(target == null) {
             return false;
         }
@@ -252,7 +269,7 @@ public class BST<T extends Comparable<T>, E extends Comparable<E>>{
             return false;
         }
         
-        T targetFound = findNodeHelper(root, target);
+        T targetFound = findNodeHelper(root, target, byCoord);
         
         if(targetFound == null) {
             return false;
